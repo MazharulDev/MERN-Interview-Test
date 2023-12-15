@@ -30,6 +30,8 @@ function WhiteBoard() {
   const [width, setWidth] = useState(1);
   const [shapeWidth, setShapeWidth] = useState(1);
   const [popped, setPopped] = useState(false);
+  // const [storedPath, setStoredPath] = useState([]);
+  // console.log(storedPath);
 
   useEffect(() => {
     const canvas = document.getElementById("canvas");
@@ -85,8 +87,19 @@ function WhiteBoard() {
     };
   }, [popped, elements, path, width, toolType, shapeWidth]);
 
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/api/v1/path`, {
+  //     method: "GET",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) =>
+  //       setStoredPath(data?.data?.map((drawingArr) => drawingArr.drawings))
+  //     );
+  // }, []);
+
   useEffect(() => {
     // Load path and elements from localStorage
+
     const storedPath = localStorage.getItem("path");
     const storedElements = localStorage.getItem("elements");
 
@@ -123,8 +136,8 @@ function WhiteBoard() {
     elementsCopy[index] = updatedElement;
     setElements(elementsCopy);
     // Save updated elements to localStorage
-    // localStorage.setItem("elements", JSON.stringify(elementsCopy));
-    console.log(JSON.stringify(elementsCopy));
+    localStorage.setItem("elements", JSON.stringify(elementsCopy));
+    // console.log(JSON.stringify(elementsCopy)); //line box
   };
 
   const checkPresent = (clientX, clientY) => {
@@ -143,7 +156,7 @@ function WhiteBoard() {
           setPath(newPath);
 
           // Save updated path to localStorage
-          // localStorage.setItem("path", JSON.stringify(newPath));
+          localStorage.setItem("path", JSON.stringify(newPath));
           console.log(JSON.stringify(newPath));
 
           return;
@@ -163,8 +176,8 @@ function WhiteBoard() {
         setElements(newElements);
 
         // Save updated elements to localStorage
-        // localStorage.setItem("elements", JSON.stringify(newElements));
-        console.log(JSON.stringify(newElements));
+        localStorage.setItem("elements", JSON.stringify(newElements));
+        // console.log(JSON.stringify(newElements));
       }
     });
   };

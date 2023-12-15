@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
 const Board = ({
@@ -89,11 +90,11 @@ const Board = ({
         setSelectedElement(element);
 
         // Save updated elements to localStorage
-        // localStorage.setItem(
-        //   "elements",
-        //   JSON.stringify([...elements, element])
-        // );
-        console.log([...elements, element]);
+        localStorage.setItem(
+          "elements",
+          JSON.stringify([...elements, element])
+        );
+        // console.log([...elements, element]);
       }
     }
   };
@@ -197,8 +198,19 @@ const Board = ({
       setPath((prevState) => [...prevState, element]); // tuple
       setIsDrawing(false);
       // Save updated path to localStorage
-      // localStorage.setItem("path", JSON.stringify([...path, element]));
-      console.log(JSON.stringify([...path, element]));
+      localStorage.setItem("path", JSON.stringify([...path, element]));
+      const drawingData = {
+        drawings: [...path, element],
+      };
+      fetch(`http://localhost:5000/api/v1/path`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(drawingData),
+      })
+        .then((res) => res.json())
+        .then((output) => {});
     }
     setAction("none");
   };
