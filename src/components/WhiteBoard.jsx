@@ -157,7 +157,7 @@ function WhiteBoard() {
 
           // Save updated path to localStorage
           localStorage.setItem("path", JSON.stringify(newPath));
-          console.log(JSON.stringify(newPath));
+          // console.log(JSON.stringify(newPath));
 
           return;
         }
